@@ -1,32 +1,37 @@
 <template>
   <div>
-    <div class="entry-tittle d-flex justify-content-between p-2">
-      <div>
-        <span class="text-success fs-3 fw-bold">15</span>
-        <span class="mx-1 fs-3">Julio</span>
-        <span class="mx-2 fs-4 fw-light">2021, jueves</span>
-        <span></span>
+    <template  v-if="entry">
+      <div class="entry-tittle d-flex justify-content-between p-2">
+        <div>
+          <span class="text-success fs-3 fw-bold">{{ getDate.day }}</span>
+          <span class="mx-1 fs-3">{{getDate.month}}</span>
+          <span class="mx-2 fs-4 fw-light">{{ getDate.yearDay }}</span>
+          <span></span>
+        </div>
+    
+        <div>
+          <button class="btn btn-danger mx-2">
+            Borrar
+            <i class="fa fa-trash-alt"></i>
+          </button>
+    
+          <button class="btn btn-primary">
+            Subir foto
+            <i class="fa fa-upload"></i>
+          </button>
+        </div>
       </div>
   
-      <div>
-        <button class="btn btn-danger mx-2">
-          Borrar
-          <i class="fa fa-trash-alt"></i>
-        </button>
+      <hr>
+      <div class="d-flex flex-column px-3 h-75">
+        <textarea 
+        placeholder="¿Qué sucedió hoy?"
+        v-model="entry.text"
+        >
   
-        <button class="btn btn-primary">
-          Subir foto
-          <i class="fa fa-upload"></i>
-        </button>
+        </textarea>
       </div>
-    </div>
-
-    <hr>
-    <div class="d-flex flex-column px-3 h-75">
-      <textarea placeholder="¿Qué sucedió hoy?">
-
-      </textarea>
-    </div>
+    </template>
     <Fab icon="fa-save"></Fab>
 
     <img 
@@ -38,16 +43,26 @@
 </template>
 
 <script>
+import getDayMothYear from "../helpers/getDayMothYear";
 import { defineAsyncComponent } from 'vue'
 import { mapGetters } from "vuex";
 export default {
   components: {
     Fab: defineAsyncComponent( () => import('../components/Fab.vue') )
   },
+  data() {
+    return {
+      entry: null
+    }
+  },
   computed: {
     ...mapGetters('journalModule', [
       'getEntryById'
-    ])
+    ]),
+    getDate() {
+            const date = new Date( this.entry?.date )
+            return getDayMothYear(date)
+        }
   },
   props: {
     id: {
@@ -58,12 +73,18 @@ export default {
   methods: {
     loadEntry() {
       const entry = this.getEntryById(this.id)
-      console.log(entry);
+      if(!entry)  return this.$router.push({name: 'no-entry'})
+      this.entry = entry
     }
   },
   created() {
     this.loadEntry()
     // console.log(this.id);
+  },
+  watch: {
+    id() {
+      this.loadEntry() 
+    }
   }
 }
 </script>
