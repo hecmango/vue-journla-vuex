@@ -21,4 +21,8 @@ export default {
     div {
         height: 100%;
     }
+
+    .custom-center {
+        text-align: center;
+    }
 </style>

@@ -32,7 +32,10 @@
         </textarea>
       </div>
     </template>
-    <Fab icon="fa-save"></Fab>
+    <Fab 
+    @on:click="saveEntry"
+    icon="fa-save">
+    </Fab>
 
     <img 
     src="https://img.asmedia.epimg.net/resizer/PZHkrHct0OO2eLah-3TZkpngW8s=/1472x1104/filters:focal(2155x1396:2165x1406)/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/SJCYDWNWIMJY3Y2OROIBOR37VI.jpg"
@@ -75,11 +78,13 @@ export default {
       const entry = this.getEntryById(this.id)
       if(!entry)  return this.$router.push({name: 'no-entry'})
       this.entry = entry
+    },
+     async saveEntry() {
+      console.log('Guardando entrada...');
     }
   },
   created() {
     this.loadEntry()
-    // console.log(this.id);
   },
   watch: {
     id() {

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-primary">
+  <button @click="createOrUpdateEntry" class="btn btn-primary">
     <i :class="`fa fa-2x ${icon}`"></i>
   </button>
 </template>
@@ -10,6 +10,11 @@ props: {
   icon: {
     type: String,
     default: 'fa-plus'
+  },
+},
+methods: {
+  createOrUpdateEntry () {
+    this.$emit('on:click')
   }
 }
 }

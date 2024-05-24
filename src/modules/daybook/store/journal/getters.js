@@ -17,4 +17,5 @@ export const getEntryById =  ( state ) => ( id='' ) => {
     }
 
     return {...entry}
+    // return entry
 }

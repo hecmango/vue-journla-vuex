@@ -35,22 +35,6 @@ export default {
             const date = new Date( this.entry.date )
             return getDayMothYear(date)
         }
-        // day() {
-        //     // console.log(typeof this.entry.date);
-        //     const date = new Date( this.entry.date )
-        //     // console.log( typeof date);
-        //      return date.getDate();
-        // },
-        // month() {
-        //     const date = new Date( this.entry.date )
-        //     // console.log(date);
-        //     // console.log(date.getMonth());
-        //     return months[ date.getMonth() ]
-        // },
-        // yearDay() {
-        //     const date = new Date(  this.entry.date )
-        //     return `${date.getFullYear()}, ${ days[ date.getDay() ] }`
-        // }
     }
 
 }
