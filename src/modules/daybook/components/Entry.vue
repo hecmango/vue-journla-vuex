@@ -1,7 +1,7 @@
 <template>
   <div
   class="entry-container mb-3 pointer p-2"
-  @click="$router.push({name: 'entry', params: { id: entry.id }})"
+  @click="goToEntryView"
   >
     <div
     class="entry-tittle d-flex">
@@ -27,13 +27,20 @@ export default {
     },
     computed: {
         shortText() {
-          return (this.entry.text.length > 130)
-          ? this.entry.text.substring(0,130) + '...'
+          return (this.entry.text.length > 100)
+          ? this.entry.text.substring(0,100) + '...'
           : this.entry.text
         },
         getDate() {
             const date = new Date( this.entry.date )
             return getDayMothYear(date)
+        }
+    },
+    methods: {
+        goToEntryView() {
+            if(this.$router?.currentRoute?.params?.id !== this.entry.id) {
+                this.$router.push({name: 'entry', params: { id: this.entry.id }})
+            }
         }
     }
 

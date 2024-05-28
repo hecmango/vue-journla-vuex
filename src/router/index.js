@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: '/daybook',
-    name: 'daybook',
+    // name: 'daybook',
     component: DayBookLayout,
     ...daybookRouter
   },
